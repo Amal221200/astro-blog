@@ -1,6 +1,7 @@
 export type ArticleType = {
     image: string;
     title: string;
-    date: string;
+    pubDate: Date;
+    slug: string;
     tags: string[];
 }
