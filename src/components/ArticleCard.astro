@@ -1,8 +1,11 @@
 ---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "../utils/functions";
 import type { ArticleType } from "../utils/types";
+import Tags from "./Tags.astro";
 
 interface Props {
-  article: ArticleType;
+  article: CollectionEntry<'blog'>;
 }
 
 const { article } = Astro.props;
@@ -12,26 +15,18 @@ const { article } = Astro.props;
   <div class="overflow-hidden rounded-lg bg-white shadow-lg">
     <a href={`/articles/${article.slug}`}>
       <img
-        src={`/images/${article.image}`}
+        src={`/images/${article.data.image}`}
         alt="Article Image"
         class="h-48 w-full object-cover transition duration-300 ease-in-out hover:opacity-75"
       />
     </a>
     <div class="p-6">
       <h2 class="mb-2 text-2xl font-semibold">
-        <a href={`/articles/${article.slug}`}> {article.title} </a>
+        <a href={`/articles/${article.slug}`}> {article.data.title} </a>
       </h2>
-      <p class="mb-4 text-sm text-gray-600">{article.pubDate}</p>
+      <p class="mb-4 text-sm text-gray-600">{formatDate(article.data.pubDate)}</p>
       <div class="flex flex-wrap gap-2">
-        {
-          article.tags.map((tag: string, i) => (
-            <span
-              class={`px-2 py-1 ${i % 2 === 0 ? "bg-blue-500" : "bg-purple-500"} text-white rounded-full text-xs hover:opacity-90`}
-            >
-              <a href={`/articles?tag=${tag}`}>{tag}</a>
-            </span>
-          ))
-        }
+       <Tags tags={article.data.tags} />
       </div>
     </div>
   </div>
