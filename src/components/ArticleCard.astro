@@ -16,7 +16,7 @@ const { article } = Astro.props;
     <a href={`/articles/${article.slug}`}>
       <img
         src={`/images/${article.data.image}`}
-        alt="Article Image"
+        alt={article.data.title}
         class="h-48 w-full object-cover transition duration-300 ease-in-out hover:opacity-75"
       />
     </a>

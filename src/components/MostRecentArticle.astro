@@ -13,7 +13,7 @@ const { article } = Astro.props;
   <a href={`/articles/${article.slug}`}>
     <img
       src={`/images/${article.data.image}`}
-      alt="Article Image"
+      alt={article.data.title}
       class="h-auto w-full rounded-2xl"
     />
 
