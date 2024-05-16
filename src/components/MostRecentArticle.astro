@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { formatDate, capitalize } from "../utils/functions";
+import { formatDate } from "../utils/functions";
 
 interface Props {
   article: CollectionEntry<"blog">;
@@ -30,8 +30,8 @@ const { article } = Astro.props;
         <div class="mt-4 flex justify-center">
           {
             article.data.tags.map((tag) => (
-              <span class="mr-2 rounded-full border px-2 py-1 text-xs text-white">
-                {capitalize(tag)}
+              <span class="mr-2 rounded-full border px-2 py-1 text-xs capitalize text-white">
+                {tag}
               </span>
             ))
           }

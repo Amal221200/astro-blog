@@ -1,5 +1,50 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import MainLayout from "../../../layouts/MainLayout.astro";
+import { getEntry } from "astro:content";
+import { notFound } from "astro:i18n";
+import Tags from "../../../components/Tags.astro";
+import { formatDate } from "../../../utils/functions";
+
+const { slug } = Astro.params;
+
+if (slug === undefined) {
+  throw new Error("");
+}
+
+const article = await getEntry("blog", slug);
+
+if (article === undefined) {
+  return Astro.redirect("/404");
+}
+
+const { Content } = await article.render();
 ---
 
-<MainLayout title=""> Article </MainLayout>
+<MainLayout title={article.data.title}>
+  <a
+    href="/articles"
+    class="mb-6 inline-block bg-gray-100 p-2 hover:bg-indigo-500 hover:text-white"
+    >Back To Articles</a
+  >
+  <article>
+    <h1 class="mb-2 text-4xl font-bold">
+      {article.data.title}
+    </h1>
+    <h3 class="mb-2 text-lg">
+      Written by {article.data.author} on {formatDate(article.data.pubDate)}
+    </h3>
+    <Tags tags={article.data.tags} className="mb-6" />
+    <img
+      src={`/images/${article.data.image}`}
+      alt="Article Image"
+      class="mb-6 h-auto w-full rounded-xl"
+    />
+
+    <div
+      class="prose-h2:my-5 prose-h2:text-3xl prose-h2:font-semibold prose-p:my-5"
+    >
+      <Content />
+    </div>
+  </article>
+</MainLayout>

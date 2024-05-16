@@ -1,17 +1,20 @@
 ---
 interface Props {
   tags: string[];
+  className?: string;
 }
 
-const { tags } = Astro.props;
+const { tags, className } = Astro.props;
 ---
 
-{
-  tags.map((tag, i) => (
-    <span
-      class={`px-2 py-1 ${i % 2 === 0 ? "bg-blue-500" : "bg-purple-500"} text-white rounded-full text-xs hover:opacity-90`}
-    >
-      <a href={`/articles?tag=${tag}`}>{tag}</a>
-    </span>
-  ))
-}
+<div class={`flex flex-wrap gap-2 capitalize ${className || ""}`}>
+  {
+    tags.map((tag, i) => (
+      <span
+        class={`px-2 py-1 ${i % 2 === 0 ? "bg-blue-500" : "bg-purple-500"} text-white rounded-full text-xs hover:opacity-90`}
+      >
+        <a href={`/articles/tag/${tag}`}>#{tag}</a>
+      </span>
+    ))
+  }
+</div>

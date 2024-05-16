@@ -25,9 +25,7 @@ const { article } = Astro.props;
         <a href={`/articles/${article.slug}`}> {article.data.title} </a>
       </h2>
       <p class="mb-4 text-sm text-gray-600">{formatDate(article.data.pubDate)}</p>
-      <div class="flex flex-wrap gap-2">
-       <Tags tags={article.data.tags} />
-      </div>
+      <Tags tags={article.data.tags} />
     </div>
   </div>
 </article>

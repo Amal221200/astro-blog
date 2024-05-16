@@ -3,19 +3,15 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import { capitalize } from "../../utils/functions";
 
-const tag = Astro.url.searchParams.get("tag");
-const articles: CollectionEntry<"blog">[] = (
-  await getCollection("blog", (article) =>
-    tag ? article.data.tags.includes(tag) : article
-  )
-).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const articles: CollectionEntry<"blog">[] = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
-<MainLayout title="">
+<MainLayout title="All Articles">
   <h1 class="pb-3 text-2xl">
-    {tag ? capitalize(tag) : "All"} Articles
+    All Articles
   </h1>
   <!-- Main Grid -->
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
